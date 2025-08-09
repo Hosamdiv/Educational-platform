@@ -4,13 +4,14 @@ import router from "./routes";
 const App = () => {
   return (
     <>
-
-      <RouterProvider router={router} />
+      <div className="px-4 sm:px-[5vw] md:px-[7vm] lg:px-[9vm]">
+        <RouterProvider router={router} />
+      </div>
     </>
   );
+
 };
 
 export default App;
-
 
 

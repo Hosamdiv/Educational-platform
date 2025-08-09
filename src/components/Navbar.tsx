@@ -1,44 +1,74 @@
-// src/components/Navbar.tsx
 
-import { Brain } from "lucide-react";
+import { Link, NavLink } from "react-router";
+import { assets } from "../assets/assets";
+import { useState } from "react";
 
 const Navbar = () => {
+    const [visibole, setVisibole] = useState<boolean>(false)
     return (
-        <nav className="bg-white shadow-md">
-            <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-                <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                            <Brain className="w-6 h-6 text-white" />
+        <nav className="flex items-center justify-between py-5 font-medium">
+            <img src={assets.logo} alt="logo" />
+            <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
+                <NavLink to="/" className={"flex flex-col items-center gap-1"}>
+                    <p>HOME</p>
+                    <hr className="hidden w-2/4 border-none h-[1.5px] bg-gray-700" />
+                </NavLink>
+                <NavLink to="/collection" className={"flex flex-col items-center gap-1"}>
+                    <p>COLLECTION</p>
+                    <hr className="hidden w-2/4 border-none h-[1.5px] bg-gray-700" />
+                </NavLink>
+                <NavLink to="/about" className={"flex flex-col items-center gap-1"}>
+                    <p>ABOUT</p>
+                    <hr className="hidden w-2/4 border-none h-[1.5px] bg-gray-700" />
+                </NavLink>
+                <NavLink to="/contact" className={"flex flex-col items-center gap-1"}>
+                    <p>CONTACT</p>
+                    <hr className="hidden w-2/4 border-none h-[1.5px] bg-gray-700" />
+                </NavLink>
+            </ul>
+            <div className="flex items-center gap-6">
+                <img className="w-5 cursor-pointer" src={assets.search_icon} alt="search_icon" />
+                <div className="group relative">
+                    <img className="w-5 cursor-pointer" src={assets.profile_icon} alt="profile_icon" />
+                    <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
+                        <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
+                            <p className="cursor-pointer hover:text-black">My Provile</p>
+                            <p className="cursor-pointer hover:text-black">Orders</p>
+                            <p className="cursor-pointer hover:text-black">Logout</p>
+
                         </div>
-                        <div>
-                            <h1 className="text-xl font-bold text-gray-900">MindLearn</h1>
-                            <p className="text-xs text-gray-600">Philosophy & Psychology</p>
-                        </div>
-                    </div>
-                    <nav className="hidden md:flex items-center gap-6">
-                        <a href="#courses" className="text-gray-600 hover:text-purple-600 transition-colors">
-                            Courses
-                        </a>
-                        <a href="#about" className="text-gray-600 hover:text-purple-600 transition-colors">
-                            About
-                        </a>
-                        <a href="#instructors" className="text-gray-600 hover:text-purple-600 transition-colors">
-                            Instructors
-                        </a>
-                        <a href="#contact" className="text-gray-600 hover:text-purple-600 transition-colors">
-                            Contact
-                        </a>
-                    </nav>
-                    <div className="flex items-center gap-3">
-                        <button >Sign In</button>
-                        <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                            Get Started
-                        </button>
                     </div>
                 </div>
-            </header>
-
+                <Link to="/cart" className="relative">
+                    <img src={assets.cart_icon} className="w-5 min-w-5" alt="cart_icon" />
+                    <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center
+                     leading-4 bg-black text-white 
+                     aspect-square rounded-full text-[8px]">
+                        10
+                    </p>
+                </Link>
+                <img src={assets.menu_icon}
+                    className="w-5 cursor-pointer sm:hidden"
+                    alt="menu_icon"
+                    onClick={() => setVisibole(true)}
+                />
+            </div>
+            {/* Sidebar menu for small screen */}
+            <div className={`absolute top-0 bottom-0 overflow-hidden bg-white transition-all ${visibole ? "w-full" : "w-0"}`}>
+                <div className="flex flex-col text-gray-600 ">
+                    <div onClick={() => setVisibole(false)}
+                        className="flex items-center gap-4 p-4 cursor-pointer">
+                        <img
+                            className="h-4 rotate-180"
+                            src={assets.dropdown_icon} alt="dropdown_icon" />
+                        <p>Back</p>
+                    </div>
+                    <NavLink onClick={() => setVisibole(false)} className={"py-2 pl-6 border-b"} to="/">HOME</NavLink>
+                    <NavLink onClick={() => setVisibole(false)} className={"py-2 pl-6 border-b"} to="/collection">COLLECTION</NavLink>
+                    <NavLink onClick={() => setVisibole(false)} className={"py-2 pl-6 border-b"} to="/about">ABOUT</NavLink>
+                    <NavLink onClick={() => setVisibole(false)} className={"py-2 pl-6 border-b"} to="/contact">CONTACT</NavLink>
+                </div>
+            </div>
         </nav>
     );
 };
