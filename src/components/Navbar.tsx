@@ -1,10 +1,13 @@
 
 import { Link, NavLink } from "react-router";
 import { assets } from "../assets/assets";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
-    const [visibole, setVisibole] = useState<boolean>(false)
+    const [visibole, setVisibole] = useState<boolean>(false);
+    const { setShowSearch } = useContext(ShopContext);
+
     return (
         <nav className="flex items-center justify-between py-5 font-medium">
             <Link to={"/"}>
@@ -29,7 +32,9 @@ const Navbar = () => {
                 </NavLink>
             </ul>
             <div className="flex items-center gap-6">
-                <img className="w-5 cursor-pointer" src={assets.search_icon} alt="search_icon" />
+                <img
+                    onClick={() => setShowSearch(true)}
+                    className="w-5 cursor-pointer" src={assets.search_icon} alt="search_icon" />
                 <div className="group relative">
                     <img className="w-5 cursor-pointer" src={assets.profile_icon} alt="profile_icon" />
                     <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
