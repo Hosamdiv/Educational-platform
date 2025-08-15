@@ -6,7 +6,7 @@ import ProductItem from "../components/ProductItem";
 import type { IProducts } from "../interface/products";
 
 const Collection = () => {
-    const { products } = useContext(ShopContext);
+    const { products, search, showSearch } = useContext(ShopContext);
     const [showFilter, setShowFilter] = useState(true);
     const [filteredProducts, setFilteredProducts] = useState<IProducts[]>([]);
     const [category, setCategory] = useState<string[]>([]);
@@ -31,6 +31,9 @@ const Collection = () => {
 
     const filterAndSort = useCallback(() => {
         let productsCopy = [...products];
+        if (showSearch && search) {
+            productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+        }
 
         if (category.length > 0) {
             productsCopy = productsCopy.filter(item =>
@@ -56,7 +59,7 @@ const Collection = () => {
         }
 
         setFilteredProducts(productsCopy);
-    }, [products, category, subCategory, sortType]);
+    }, [products, category, subCategory, sortType, search, showSearch]);
 
     useEffect(() => {
         filterAndSort();
