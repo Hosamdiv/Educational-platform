@@ -2,22 +2,25 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router"
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
+import RelatedProducts from "../components/RelatedProducts";
 interface IProduct {
   _id: string;
   name: string;
   description: string;
   price: number;
+  category: string;
+  subCategory: string;
   image: string[];
   sizes: string[];
 }
 const ProductPage = () => {
   const { productId } = useParams<{ productId: string }>();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState<IProduct | null>(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("")
 
-
+  
   useEffect(() => {
     if (products && productId) {
       const foundProduct = products.find((item) => item._id === productId);
@@ -69,7 +72,9 @@ const ProductPage = () => {
               ))}
             </div>
           </div>
-          <button className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+          <button
+            onClick={() => addToCart(productData._id, size)}
+            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
             ADD TO CART
           </button>
           <hr className="mt-8 sm:w-4/5" />
@@ -90,7 +95,7 @@ const ProductPage = () => {
             Reviews (122)
           </p>
         </div>
-        <div className="flex flex-col gap-4  border px-6 py-6 text-sm text-gray-500">
+        <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
           <p>An e-commerce website is an online platform that
             facilitates the buying and selling of products or
             services over the internet. It erves as a virtual
@@ -102,7 +107,11 @@ const ProductPage = () => {
             accessibility, and the global reach they offer.</p>
         </div>
       </div>
+
       {/* ------ display related products ------- */}
+
+
+      <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
     </div>
   ) : <div className="opacity-0">
 
