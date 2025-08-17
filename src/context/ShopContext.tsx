@@ -16,7 +16,6 @@ export interface ShopContextType {
   cartItems: CartItem;
   updateQuantity: (itemId: string, size: string, quantity: number) => void;
   getCartAmount: () => number;
-
 }
 
 interface ShopContextProviderProps {
@@ -43,7 +42,6 @@ export const ShopContext = createContext<ShopContextType>({
   cartItems: {},
   updateQuantity: () => { },
   getCartAmount: () => 0,
-
 });
 
 const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
@@ -52,6 +50,7 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
   const [search, setSearch] = useState<string>("");
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<CartItem>({});
+
 
   const addToCart = (itemId: string, size: string) => {
     if (!size) {
@@ -128,7 +127,8 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
     getCartCount,
     cartItems,
     updateQuantity,
-    getCartAmount
+    getCartAmount,
+    // navigate
   };
 
   return (

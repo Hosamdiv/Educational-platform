@@ -3,6 +3,7 @@ import { ShopContext } from "../context/ShopContext"
 import Title from "../components/Title";
 import { assets } from "../assets/assets";
 import CartTotal from "../components/CartTotal";
+import { useNavigate } from "react-router";
 interface CartDataItem {
   _id: string;
   size: string;
@@ -13,6 +14,7 @@ const CartPage = () => {
   const { products, currency, cartItems, updateQuantity } = useContext(ShopContext)
 
   const [cartDate, setCartData] = useState<CartDataItem[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const tempData: CartDataItem[] = [];
@@ -63,11 +65,14 @@ const CartPage = () => {
           })
         }
       </div>
-         <div className="flex justify-end my-20">
-                <div className="w-full sm:w-[450px]">
-                    <CartTotal />
-                </div>
-            </div>
+      <div className="flex justify-end my-20">
+        <div className="w-full sm:w-[450px]">
+          <CartTotal />
+          <div className="w-full text-end">
+            <button onClick={() => navigate("/place-order")} className="bg-black text-white text-sm my-8 px-8 py-3">PROCEED TO CHECKOUT</button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
