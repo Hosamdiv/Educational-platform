@@ -3,6 +3,7 @@ import { useParams } from "react-router"
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
+import Button from "../components/ui/Button";
 interface IProduct {
   _id: string;
   name: string;
@@ -20,7 +21,7 @@ const ProductPage = () => {
   const [image, setImage] = useState("");
   const [size, setSize] = useState("")
 
-  
+
   useEffect(() => {
     if (products && productId) {
       const foundProduct = products.find((item) => item._id === productId);
@@ -72,11 +73,11 @@ const ProductPage = () => {
               ))}
             </div>
           </div>
-          <button
+          <Button
             onClick={() => addToCart(productData._id, size)}
             className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
             ADD TO CART
-          </button>
+          </Button>
           <hr className="mt-8 sm:w-4/5" />
           <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
             <p>100% Original product.</p>
