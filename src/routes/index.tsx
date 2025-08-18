@@ -15,7 +15,7 @@ const router = createBrowserRouter(
 
     createRoutesFromElements(
         <>
-            
+
             {/* Root Layout */}
             <Route>
                 <Route path="/" element={<RootLayout />}>
@@ -28,11 +28,11 @@ const router = createBrowserRouter(
                     <Route path="place-order" element={<PlaceOrderPage />} />
                     <Route path="orders" element={<OrdersPage />} />
 
+                    <Route
+                        path="/login"
+                        element={<LoginPage />}
+                    />
                 </Route>
-                <Route
-                    path="/login"
-                    element={<LoginPage />}
-                />
             </Route>
         </>
     )
